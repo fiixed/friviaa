@@ -80,7 +80,10 @@ class _HomePageState extends State<HomePage> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (BuildContext _context) {
-            return GamePage();
+            return GamePage(
+                difficultyLevel:
+                    _difficultyText[_currentDifficultyLevel.toInt()]
+                        .toLowerCase());
           }),
         );
       },
