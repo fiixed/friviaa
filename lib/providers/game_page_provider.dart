@@ -9,6 +9,7 @@ class GamePageProvider extends ChangeNotifier {
 
   List? questions;
   int _currentQuestionCount = 0;
+  int _score = 0;
 
   BuildContext context;
   GamePageProvider({required this.context}) {
@@ -39,6 +40,7 @@ class GamePageProvider extends ChangeNotifier {
     bool isCorrect =
         questions![_currentQuestionCount]['correct_answer'] == _answer;
     _currentQuestionCount++;
+    if (isCorrect) _score++;
     showDialog(
       context: context,
       builder: (BuildContext _context) {
@@ -55,6 +57,31 @@ class GamePageProvider extends ChangeNotifier {
       const Duration(seconds: 1),
     );
     Navigator.pop(context);
-    notifyListeners();
+    if (_currentQuestionCount == _maxQuestions) {
+      endGame();
+    } else {
+      notifyListeners();
+    }
+  }
+
+  Future<void> endGame() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext _context) {
+        return AlertDialog(
+          backgroundColor: Colors.blue,
+          title: Text(
+            'End Game!',
+            style: TextStyle(fontSize: 25, color: Colors.white),
+          ),
+          content: Text('Score: $_score/$_maxQuestions'),
+        );
+      },
+    );
+    await Future.delayed(
+      const Duration(seconds: 3),
+    );
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 }
