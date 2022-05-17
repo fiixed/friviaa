@@ -39,8 +39,8 @@ class GamePageProvider extends ChangeNotifier {
   void answerQuestion(String _answer) async {
     bool isCorrect =
         questions![_currentQuestionCount]['correct_answer'] == _answer;
-    _currentQuestionCount++;
     if (isCorrect) _score++;
+    _currentQuestionCount++;
     showDialog(
       context: context,
       builder: (BuildContext _context) {
@@ -82,6 +82,6 @@ class GamePageProvider extends ChangeNotifier {
       const Duration(seconds: 3),
     );
     Navigator.pop(context);
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 }
